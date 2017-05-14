@@ -29,7 +29,7 @@ def compute_contours(cns):
 
 # Lego thing: [90   0 240] [120 255 255]
 # Low light butterfly or skittle [90 10 240] [120 255 255]
-# Green skittle - [ 35 130  80] [ 95 255 255]
+# Green skittle - [ 35 130  80] [ 95 255 255], [30 80 85] [ 95 255 255]
 
 lh = ControlledVariable(0, 255, 90,  (ord('a'), ord('s')))
 uh = ControlledVariable(0, 255, 120, (ord('k'), ord('l')))

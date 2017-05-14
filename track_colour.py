@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+from controlled_variable import ControlledVariable
+
 def compute_contours(cns):
     """Centroid stuff"""
     # find the largest contour in the mask, then use
@@ -11,24 +13,6 @@ def compute_contours(cns):
     M = cv2.moments(c)
     center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
     return center, radius, (x, y)
-
-class ControlledVariable(object):
-    def __init__(self, minimum, maximum, start, keys):
-        self.minimum = minimum
-        self.maximum = maximum
-        self.current = start
-        self.inc_key, self.dec_key = keys
-
-    @property
-    def value(self):
-        return current
-
-    def handle_key(self, key):
-        """Handle a key press and make the change"""
-        if key == self.inc_key and self.current < self.maximum:
-            self.current += 5
-        elif key == self.dec_key and self.current > self.minimum:
-            self.current -= 5
 
 
 # illumination can be a problem due to colour value

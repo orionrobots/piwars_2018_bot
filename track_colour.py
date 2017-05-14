@@ -24,6 +24,8 @@ device = cv2.VideoCapture(0)
 # sv - right the way up to allow for illumination
 
 # Lego thing: [90   0 240] [120 255 255]
+# Green skittle - [ 35 130  80] [ 95 255 255]
+
 lh = ControlledVariable(0, 255, 90,  (ord('a'), ord('s')))
 uh = ControlledVariable(0, 255, 120, (ord('k'), ord('l')))
 lv = ControlledVariable(0, 255, 240, (ord('z'), ord('x')))

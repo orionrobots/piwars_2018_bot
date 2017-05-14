@@ -28,13 +28,15 @@ def compute_contours(cns):
 # sv - right the way up to allow for illumination
 
 # Lego thing: [90   0 240] [120 255 255]
-# Low light butterfly or skittle
+# Low light butterfly or skittle [90 10 240] [120 255 255]
+# Green skittle - [ 35 130  80] [ 95 255 255]
+
 lh = ControlledVariable(0, 255, 90,  (ord('a'), ord('s')))
 uh = ControlledVariable(0, 255, 120, (ord('k'), ord('l')))
-lv = ControlledVariable(0, 255, 240, (ord('z'), ord('x')))
-hv = ControlledVariable(0, 255, 255, (ord('m'), ord('n')))
 ls = ControlledVariable(0, 255, 10,  (ord('q'), ord('w')))
 hs = ControlledVariable(0, 255, 255, (ord('o'), ord('p')))
+lv = ControlledVariable(0, 255, 240, (ord('z'), ord('x')))
+hv = ControlledVariable(0, 255, 255, (ord('m'), ord('n')))
 
 camera = PiCamera()
 camera.resolution = (320, 240)

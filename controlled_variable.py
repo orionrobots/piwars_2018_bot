@@ -4,7 +4,7 @@ class ControlledVariable(object):
         self.minimum = minimum
         self.maximum = maximum
         self.current = start
-        self.inc_key, self.dec_key = keys
+        self.dec_key, self.inc_key  = keys
 
     @property
     def value(self):

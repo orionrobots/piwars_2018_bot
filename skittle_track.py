@@ -20,6 +20,25 @@ def compute_contours(cns):
     center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
     return center, radius, (x, y)
 
+
+class ControlledVariable(object):
+    def __init__(self, minimum, maximum, start, keys):
+        self.minimum = minimum
+        self.maximum = maximum
+        self.current = start
+        self.inc_key, self.dec_key = keys
+
+    @property
+    def value(self):
+        return current
+
+    def handle_key(self, key):
+        """Handle a key press and make the change"""
+        if key == self.inc_key and self.current < self.maximum:
+            self.current += 5
+        elif key == self.dec_key and self.current > self.minimum:
+            self.current -= 5
+
 # illumination can be a problem due to colour value
 # hsv? yuv?- define range (try hsv later)
 
@@ -28,10 +47,12 @@ def compute_contours(cns):
 
 # Lego thing: [90   0 240] [120 255 255]
 # Low light butterfly or skittle
-lh = 90
-uh = 130
-lv = 25
-hv = 130
+lh = ControlledVariable(0, 255, 90,  (ord('a'), ord('s')))
+uh = ControlledVariable(0, 255, 120, (ord('k'), ord('l')))
+lv = ControlledVariable(0, 255, 240, (ord('z'), ord('x')))
+hv = ControlledVariable(0, 255, 255, (ord('m'), ord('n')))
+ls = ControlledVariable(0, 255, 10,  (ord('q'), ord('w')))
+hs = ControlledVariable(0, 255, 255, (ord('o'), ord('p')))
 
 camera = PiCamera()
 camera.resolution = (320, 240)
@@ -56,8 +77,8 @@ with Robot() as robot:
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        lower_range = np.array([lh, 0, lv], np.uint8)
-        upper_range = np.array([uh, 255, hv], np.uint8)
+        lower_range = np.array([lh.value, ls.value, lv.value], np.uint8)
+        upper_range = np.array([uh.value, hs.value, hv.value], np.uint8)
 
         # Create a mask around that colour
         inrange = cv2.inRange(hsv, lower_range, upper_range)
@@ -108,25 +129,15 @@ with Robot() as robot:
         cv2.imshow("Frame", frame)
         print lower_range, upper_range
         k = cv2.waitKey(1)
-        if k == 27 or k == ord('q'):
+        if k == 27:
             break
-        elif k == ord('a') and lh > 0:
-            lh -= 5
-        elif k == ord('s') and lh < 255:
-            lh += 5
-        elif k == ord('k') and uh > 0:
-            uh -= 5
-        elif k == ord('l') and uh < 255:
-            uh += 5
-        elif k == ord('z') and lv > 0:
-            lv -= 5
-        elif k == ord('x') and lv < 255:
-            lv += 5
-        elif k == ord('n') and hv > 0:
-            hv -= 5
-        elif k == ord('m') and hv < 255:
-            hv += 5
-        elif k == ord('g'):
+        lh.handle_key(k)
+        uh.handle_key(k)
+        ls.handle_key(k)
+        hs.handle_key(k)
+        lv.handle_key(k)
+        hv.handle_key(k)
+        if k == ord('g'):
             motors = not motors
             if not motors:
                 robot.stop()

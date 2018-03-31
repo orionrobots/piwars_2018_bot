@@ -18,6 +18,10 @@ class _robot(object):
     def pan(self, angle):
         pz.setOutput(self._pan, angle)
 
+    def set_motors(self, left_speed, right_speed):
+        pz.setMotor(0, max(min(int(left_speed), 100), -100))
+        pz.setMotor(1, max(min(int(right_speed), 100), -100))
+
     def forward(self, speed):
         """Both motors forward"""
         pz.forward(speed)

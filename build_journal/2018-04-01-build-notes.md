@@ -280,8 +280,29 @@ Lets try this to remove event0 from the list:
     devices = [devices[0]]
     
 
+Lets try binding and printing;
+    
+    with ControllerResource(devices = devices, controller = controller) as joystick:
+        while joystick.connected:
+                # Do stuff with your joystick here!
+                print("Left track {0:.2}   Right track {1:.2}".format(joystick.ly*1.0, joystick.ry*1.0))
+        # Joystick disconnected...
+        print('Connection to joystick lost')
 
+This kinda works. We are getting correct values for the first stick.
+The second stick - r - is bound still to rT!
+So - lets try the show thing again.
+Well - I can see the l axis only - no buttons.
+Lets try my own control class...
+Tomorrow - lets pick up this: https://github.com/ApproxEng/approxeng.input/blob/master/src/python/approxeng/input/dualshock3.py
+See if I can adapt it. Or see if I get a code drop from approx-eng.
+Plan b) Buy one of these:
+https://thepihut.com/collections/raspberry-pi-gaming/products/raspberry-pi-compatible-wireless-gamepad-controller
+(or rock candy - but the dongle is soooo big)
 
+Plan c) the microbit radio hack.
+
+Lets have a new day...
 ---
 
 Next stages:

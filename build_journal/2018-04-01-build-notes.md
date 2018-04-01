@@ -220,6 +220,68 @@ What does this mean? Wait - 2.0.4?
 Now using the controller example from https://approxeng.github.io/approxeng.input/examples/show_controls.html - and the axis are wierd.
 Time to talk on twitter.
 
+Trying to remove "pi" from the "input" group. Then log out, back in and try again. No - nothing.
+Try a reboot. Without the pad - input shows only "mice". 
+With it - I see 4 items:
+
+    event0  event1  js0  mice
+
+Show controls does nothing - sits waiting for controller. ls -l shows the story:
+
+    (env3) pi@skittlebot:~/piwars-bot $ ls -l /dev/input/
+    total 0
+    crw-rw---- 1 root input 13, 64 Apr  1 15:23 event0
+    crw-rw---- 1 root input 13, 65 Apr  1 15:23 event1
+    crw-rw---- 1 root input 13,  0 Apr  1 15:23 js0
+    crw-rw---- 1 root input 13, 63 Apr  1 15:22 mice
+
+I spoke on twitter to the approx_eng guy. With Helena's help - and used evtest - which shows event sources and allwos you to look at them.
+
+This showed nothing when not in the input group, and 2 event source when in the group.
+
+    (env3) pi@skittlebot:~ $ evtest
+    No device specified, trying to scan all of /dev/input/event*
+    Not running as root, no devices may be available.
+    Available devices:
+    /dev/input/event0:      Sony PLAYSTATION(R)3 Controller Motion Sensors
+    /dev/input/event1:      Sony PLAYSTATION(R)3 Controller
+
+event0 - is the motion sensing - but no buttons.
+event1 - is the stick with it's buttons.
+
+So my next thought was to look at how the bindings work.
+
+To do this - I dug in here: https://approxeng.github.io/approxeng.input/api/selectbinder.html
+
+And we wrote some code:
+
+    from approxeng.input.selectbinder import bind_controller
+    from approxeng.input.dualshock3 import DualShock3
+    from approxeng.input.controllers import find_single_controller
+    
+    devices, controller, p = find_single_controller(controller_class = DualShock3)
+
+    import pdb
+    pdb.set_trace()
+    
+This way we could examine the output of single controller - with a view to changing the event source. 
+The set_trace was to see it. 
+This was fruitful. When it ran - I got this:
+
+
+    (Pdb) devices
+    [InputDevice('/dev/input/event1'), InputDevice('/dev/input/event0')]
+    (Pdb) controller
+    Sony DualShock3 (Playstation 3) controller
+
+So - can we remove event 0? Event 1 is first - which is the right device.
+Lets try this to remove event0 from the list:
+    
+    devices = [devices[0]]
+    
+
+
+
 ---
 
 Next stages:

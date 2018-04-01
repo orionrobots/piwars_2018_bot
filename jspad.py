@@ -6,8 +6,7 @@ while True:
             print('Found a joystick and connected')
             while joystick.connected:
                 # Do stuff with your joystick here!
-                print("Left track", joystick.ly)
-                print("Right track", joystick.ry)
+                print("Left track", joystick.ly, "Right track", joystick.ry)
         # Joystick disconnected...
         print('Connection to joystick lost')
     except IOError:

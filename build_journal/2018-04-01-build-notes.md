@@ -188,8 +188,37 @@ pressing the PS button on the controller. Pressing and holding this button will
 > the controller off when you’re not going to be using it for a while.
 
 Now lets get some python code reading it. Starting here: https://approxeng.github.io/approxeng.input/simpleusage.html
+I have some old code in my git repo - for doing this in pygame. But no - I think I would like to try it with this stand alone lib. I've heard good
+things about the input library.
+Lets start off with his sample code - understanding the parts of it.
 
+Nice pertinent bit of information here:
 
+> The connected property on the joystick object indicates whether the underlying device is connected or not - if, for example, you have a controller that goes out of range, runs out of batteries, or is turned off while in use this will be set to False and you can handle the case correctly (if using this code in a robot, this would be an excellent time to turn of all your motors, for instance!)
+
+Ok some code added to read the two sticks Y position and print it.
+
+    print("Left track", joystick.ly, "Right track", joystick.ry)
+
+Lets run this... Ah - no module approxeng - can I pip install it?
+
+    (env3) pi@skittlebot:~/piwars-bot $ pip install approxeng.input
+    Collecting approxeng.input
+      Downloading https://www.piwheels.org/simple/approxeng-input/approxeng.input-2.0.4-py3-none-any.whl
+    ...
+    
+Oh yes...
+
+Now output - trying the left and right sticks - but not getting what I'd expect here:
+
+    Left track 0 Right track 0
+    [W 180401 14:32:35 __init__:295] Unknown axis code 4, value 127
+    [W 180401 14:32:35 __init__:295] Unknown axis code 4, value 126
+
+What does this mean? Wait - 2.0.4? 
+
+Now using the controller example from https://approxeng.github.io/approxeng.input/examples/show_controls.html - and the axis are wierd.
+Time to talk on twitter.
 
 ---
 

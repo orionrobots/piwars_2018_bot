@@ -18,7 +18,7 @@ print("Tests the motors by using the dualshock pad")
 
 pz.init()
 try:
-
+    devices, controller, p = setup_controller()
     with ControllerResource(devices=devices, controller=controller) as joystick:
         while joystick.connected:
             left_track = joystick.ly

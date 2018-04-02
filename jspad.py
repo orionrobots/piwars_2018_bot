@@ -1,4 +1,5 @@
 from approxeng.input.selectbinder import ControllerResource
+from approxeng.input.dualshock3 import DualShock3
 
 while True:
     try:
@@ -6,7 +7,11 @@ while True:
             print('Found a joystick and connected')
             while joystick.connected:
                 # Do stuff with your joystick here!
-                print("Left track {0:.2}   Right track {1:.2}".format(joystick.ly, joystick.ry))
+                print("Lx {0:.2} ly {1:.2} rx {2:.2} ry {3:.2}".format(
+			joystick.lx*1.0,
+			joystick.ly*1.0,
+			joystick.rx*1.0, 
+			joystick.ry*1.0))
         # Joystick disconnected...
         print('Connection to joystick lost')
     except IOError:

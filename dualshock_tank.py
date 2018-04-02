@@ -19,12 +19,16 @@ print("Tests the motors by using the dualshock pad")
 pz.init()
 try:
     devices, controller, p = setup_controller()
+    print("Controller setup")
     with ControllerResource(devices=devices, controller=controller) as joystick:
-        while joystick.connected:
-            left_track = joystick.ly
-            right_track = joystick.ry
-            pz.setMotor(0, left_track * 100)
-            pz.setMotor(0, right_track * 100)
+        while joystick.connected and not joystick['home']:
+            left_track = int(joystick.ly * 100)
+            right_track = int(joystick.ry * 100)
+            pz.setMotor(0, left_track)
+            pz.setMotor(1, right_track)
+            if left_track != 0 or right_track != 0:
+              print("l {0:02} r {1:02}".format(left_track, right_track))
 
+    print("Controller disconnected")
 finally:
     pz.cleanup()

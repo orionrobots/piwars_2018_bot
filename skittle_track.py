@@ -10,7 +10,7 @@ import time
 
 from piwars_bot import Robot
 
-def compute_contours(cns):
+def compute_contours(cnts):
     """Centroid stuff"""
     # find the largest contour in the mask, then use
     # it to compute the minimum enclosing circle and

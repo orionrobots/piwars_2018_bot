@@ -5,23 +5,17 @@ import piconzero as pz
 class _robot(object):
     def __init__(self):
         pz.init()
-        self._pan = 0
-        self._tilt = 1
-        pz.setOutputConfig(self._pan, 2)
-        pz.setOutputConfig(self._tilt, 2)
-        self.tilt(90)
-        self.pan(90)
-
-    def tilt(self, angle):
-        pz.setOutput(self._tilt, angle)
-
-    def pan(self, angle):
-        pz.setOutput(self._pan, angle)
 
     def set_motors(self, left_speed, right_speed):
         pz.setMotor(0, max(min(int(left_speed), 100), -100))
         pz.setMotor(1, max(min(int(right_speed), 100), -100))
 
+    def set_left(self, left_speed):
+        pz.setMotor(0, max(min(int(left_speed), 100), -100))
+
+    def set_right(self, right_speed):
+        pz.setMotor(1, max(min(int(right_speed), 100), -100))
+        
     def forward(self, speed):
         """Both motors forward"""
         pz.forward(speed)

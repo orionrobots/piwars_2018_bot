@@ -77,7 +77,7 @@ def track():
     # Low light butterfly or skittle [90 10 240] [120 255 255]
     # Green skittle - [ 35 130  80] [ 95 255 255], [30 80 85] [ 95 255 255]
 
-    # Primary red
+    # Primary red H30-90
     # Primary Green
     # Primary Blue
     # Yellow
@@ -145,8 +145,10 @@ def track():
             if should_exit:
                 break
             if should_toggle_motors:
+                print("Toggling motors")
                 motors = not motors
                 if not motors:
+                    print("off")
                     robot.stop()
             stream.truncate(0)
 

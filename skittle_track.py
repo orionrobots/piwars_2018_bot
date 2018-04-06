@@ -76,6 +76,11 @@ def track():
     # Lego thing: [90   0 240] [120 255 255]
     # Low light butterfly or skittle [90 10 240] [120 255 255]
     # Green skittle - [ 35 130  80] [ 95 255 255], [30 80 85] [ 95 255 255]
+
+    # Primary red
+    # Primary Green
+    # Primary Blue
+    # Yellow
     lh, uh, ls, hs, lv, hv = setup_keyboard()
 
     camera, stream = setup_camera()

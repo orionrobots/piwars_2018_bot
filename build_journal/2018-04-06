@@ -32,7 +32,9 @@ Multiple sensors
 ----------------
 
 This is going to get interesting. I had a chat with @4tronic on twitter and asked for some ideas.
-The PiConZero itself wouldn't be able to, but additional GPIO boards could. So creating a shim to get further 
+The PiConZero itself wouldn't be able to, but additional GPIO boards could. So the options are:
+* creating a shim to attach to sensors.
+* Finding an IO extender/interceptor board.
 
 
 

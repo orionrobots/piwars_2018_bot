@@ -1,10 +1,15 @@
 from contextlib import contextmanager
-#import gpiozero as gp
+from gpiozero import DistanceSensor
 import piconzero as pz
 
 class _robot(object):
     def __init__(self):
         pz.init()
+        self.sensor_mid = DistanceSensor(echo=20, trigger=20)
+
+    @property
+    def mid_distance(self):
+        return self.sensor_mid.distance
 
     def set_motors(self, left_speed, right_speed):
         pz.setMotor(0, max(min(int(left_speed), 100), -100))

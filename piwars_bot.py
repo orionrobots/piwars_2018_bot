@@ -5,11 +5,21 @@ import piconzero as pz
 class _robot(object):
     def __init__(self):
         pz.init()
-        self.sensor_mid = DistanceSensor(echo=20, trigger=20)
+        self.sensor_forward = DistanceSensor(echo=20, trigger=20)
+        self.sensor_left = DistanceSensor(echo=24, trigger=25)
+        self.sensor_right = DistanceSensor(echo=22, trigger=23)
 
     @property
-    def mid_distance(self):
-        return self.sensor_mid.distance
+    def forward_distance(self):
+        return self.sensor_forward.distance
+
+    @property
+    def left_distance(self):
+        return self.sensor_left.distance
+
+    @property
+    def right_distance(self):
+        return self.sensor_right.distance
 
     def set_motors(self, left_speed, right_speed):
         pz.setMotor(0, max(min(int(left_speed), 100), -100))

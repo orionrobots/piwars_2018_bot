@@ -18,6 +18,7 @@ class LedsPhysical:
     blue = Adafruit_WS2801.RGB_to_color(0, 0, 255)
     white = Adafruit_WS2801.RGB_to_color(255,255,255)
     yellow = Adafruit_WS2801.RGB_to_color(255, 255, 0)
+    black = Adafruit_WS2801.RGB_to_color(0, 0, 0)
 
     def __init__(self):
         #      -------
@@ -31,9 +32,9 @@ class LedsPhysical:
         # 0 1 2 6 7 8 9 10 11
         # -------------------
         self.count = 12
-        self.front_panel = [(0, 0, 0)] * 6
-        self.left_panel = [(0, 0, 0)] * 3
-        self.right_panel = [(0, 0, 0)] * 3
+        self.front_panel = [LedsPhysical.black] * 6
+        self.left_panel = [LedsPhysical.black] * 3
+        self.right_panel = [LedsPhysical.black] * 3
         self.pixels = Adafruit_WS2801.WS2801Pixels(self.count, spi=SPI.SpiDev(0, 0), gpio=GPIO)
 
     def __enter__(self):
@@ -83,9 +84,9 @@ class LedsPhysical:
         self.display()
 
     def clear_all(self):
-        self.front_panel = [(0, 0, 0)] * 6
-        self.left_panel = [(0, 0, 0)] * 3
-        self.right_panel = [(0, 0, 0)] * 3
+        self.front_panel = [LedsPhysical.black] * 6
+        self.left_panel = [LedsPhysical.black] * 3
+        self.right_panel = [LedsPhysical.black] * 3
         self.display()
 
 

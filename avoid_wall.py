@@ -11,7 +11,11 @@ def main():
             forward = robot.forward_distance
             right = robot.right_distance
             print(left, forward, right, mode)
-            if forward > 10:
+            if mode == 'turning right' and forward < 10:
+                robot.set_right(0)
+            elif mode = = 'turning left' and forward < 10:
+                robot.set_left(0)
+            elif forward > 10:
                 robot.set_left(100)
                 robot.set_right(100)
                 mode = 'forward'

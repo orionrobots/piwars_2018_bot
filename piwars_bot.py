@@ -1,6 +1,6 @@
 from contextlib import contextmanager
 import piconzero as pz
-from hcsr04 import getDistance as pz_getdistance
+from hcsr04 import getDistance as pz_get_distance
 
 import RPi.GPIO as GPIO
 import time
@@ -50,7 +50,7 @@ class _robot(object):
 
     @property
     def forward_distance(self):
-        return pz.get_distance()
+        return pz_get_distance()
 
     @property
     def left_distance(self):

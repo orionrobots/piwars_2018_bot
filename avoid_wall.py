@@ -3,9 +3,9 @@ from piwars_bot import Robot
 from piwars_bot_controller import PiWarsController
 
 forward_speed = 100
-reverse_speed  = -50
-forward_react_dist = 10
-hyst_react_dist = 5
+reverse_speed  = -40
+forward_react_dist = 18
+hyst_react_dist = 20
 def main():
     mode = 'Waiting for first reading'
     with Robot() as robot: #, PiWarsController().connect_pad() as joystick:

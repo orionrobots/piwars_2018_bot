@@ -41,9 +41,9 @@ class _robot(object):
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         # 24, 25 is BCM 18, 22
-        self.sensor_left = DistanceSensor(echo=18, trigger=22)
+        self.sensor_right = DistanceSensor(echo=18, trigger=22)
         # 22, 23 is BCM 15, 16
-        self.sensor_right = DistanceSensor(echo=15, trigger=16)
+        self.sensor_left = DistanceSensor(echo=15, trigger=16)
 
     def cleanup(self):
         GPIO.cleanup()

@@ -5,6 +5,7 @@ from hcsr04 import getDistance as pz_getdistance
 import RPi.GPIO as GPIO
 import time
 
+
 class DistanceSensor:
     def __init__(self, echo, trigger):
         self.echo = echo
@@ -37,10 +38,15 @@ class DistanceSensor:
 class _robot(object):
     def __init__(self):
         pz.init()
+        GPIO.setwarnings(False)
+        GPIO.setmode(GPIO.BOARD)
         # 24, 25 is BCM 18, 22
         self.sensor_left = DistanceSensor(echo=18, trigger=22)
         # 22, 23 is BCM 15, 16
         self.sensor_right = DistanceSensor(echo=15, trigger=16)
+
+    def cleanup(self):
+        GPIO.cleanup()
 
     @property
     def forward_distance(self):
@@ -85,8 +91,12 @@ class _robot(object):
 def Robot():
     """Use this to ensure robot stops if inner code 
         crashes"""
+    r = None
     try:
-        yield _robot()
-    finally:
+        r = _robot()
+        yield r
+    finally: 
         pz.stop()
         pz.cleanup()
+        if r:
+            r.cleanup()

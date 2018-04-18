@@ -3,7 +3,7 @@ from piwars_bot import Robot
 from piwars_bot_controller import PiWarsController
 
 forward_speed = 100
-reverse_speed  = -35
+reverse_speed  = -25
 forward_react_dist = 18
 hyst_react_dist = 20
 def main():

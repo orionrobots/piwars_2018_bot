@@ -13,8 +13,11 @@ class PiWarsController:
     @contextmanager
     def connect_pad(self):
         """Connect the controller and yield it"""
-        devices, controller, p = setup_controller()
-        with ControllerResource(devices=devices, controller=controller) as joystick:
+        try:
+            devices, controller, p = setup_controller()
+            cr = ControllerResource(devices=devices, controller=controller)
+        except:
+            yield None
+            return
+        with cr as joystick:
             yield joystick
-
-    

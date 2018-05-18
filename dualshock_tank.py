@@ -7,8 +7,8 @@ from piwars_bot import Robot
 
 print("Tests the motors by using the dualshock pad")
 
-pz.init()
-try:
+
+with Robot() as robot:
     print("Controller setup")
     with PiWarsController().connect_pad() as joystick, Robot() as robot:
         while joystick.connected and not joystick['home']:

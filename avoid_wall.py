@@ -6,6 +6,7 @@ forward_speed = 100
 reverse_speed  = -35
 forward_react_dist = 18
 hyst_react_dist = 20
+
 def main():
     mode = 'Waiting for first reading'
     with Robot() as robot: #, PiWarsController().connect_pad() as joystick:
@@ -16,12 +17,12 @@ def main():
             right = robot.right_distance
             print(left, forward, right, mode)
             if mode == 'turning left' and (
-                    forward < hyst_react_dist or
-                    right < hyst_react_dist):
+	        	forward < hyst_react_dist or
+	                right < hyst_react_dist):
                 robot.set_left(reverse_speed)
             elif mode == 'turning right' and (
-                    forward < hyst_react_dist or
-                    left < hyst_react_dist):
+                  forward < hyst_react_dist or
+                  left < hyst_react_dist):
                 robot.set_right(reverse_speed)
             elif forward > forward_react_dist:
                 robot.set_left(forward_speed)
